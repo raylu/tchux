@@ -4,16 +4,15 @@ XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/li
 
 CC := gcc
 CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -Ilibs -Ilibc
-LDFLAGS := -nostdlib -T arch/x86_64/linker.ld
-KERNELSRC := arch/x86_64/kernel/main.c
-KERNELOUT := out/kernel
+LDFLAGS := -nostdlib -T kernel/rch/x86_64/linker.ld
+KERNELSRC := kernel/arch/x86_64/kernel/main.c
+KERNELOUT := kernel/out/kernel
 
 override IMAGE_NAME := tchux-$(ARCH)
 
 .PHONY: all run clean
 
 all: $(IMAGE_NAME).iso
-
 
 # setup ovmf
 bootloader/ovmf/ovmf-code-$(ARCH).fd:
@@ -31,8 +30,8 @@ bootloader/limine:
 
 # kernel compile
 $(KERNELOUT): $(KERNELSRC)
-	$(CC) $(CFLAGS) -c -o out/main.o $(KERNELSRC)
-	ld $(LDFLAGS) -o $@ out/main.o
+	$(CC) $(CFLAGS) -c -o kernel/out/main.o $(KERNELSRC)
+	ld $(LDFLAGS) -o $@ kernel/out/main.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) limine.conf
@@ -50,7 +49,6 @@ run:
 
 run-x86_64: bootloader/ovmf/ovmf-code-$(ARCH).fd $(IMAGE_NAME).iso
 	qemu-system-$(ARCH) -M q35 -drive if=pflash,unit=0,format=raw,file=bootloader/ovmf/ovmf-code-$(ARCH).fd,readonly=on -cdrom $(IMAGE_NAME).iso $(QEMUFLAGS)
-
 
 clean:
 	rm -rf iso_root $(IMAGE_NAME).iso limine ovmf $(KERNELOUT) kernel/*.o
