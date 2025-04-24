@@ -3,7 +3,7 @@ QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 
 CC := gcc
-CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -E -H arch/x86_64/kernel/main.c -Ilibs -Ilibc
+CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -Ilibs -Ilibc
 LDFLAGS := -nostdlib -T arch/x86_64/linker.ld
 KERNELSRC := arch/x86_64/kernel/main.c
 KERNELOUT := out/kernel
