@@ -3,7 +3,7 @@ QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 
 CC := gcc
-CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie
+CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -E -H arch/x86_64/kernel/main.c -Ilibs -Ilibc
 LDFLAGS := -nostdlib -T arch/x86_64/linker.ld
 KERNELSRC := arch/x86_64/kernel/main.c
 KERNELOUT := out/kernel
@@ -44,7 +44,6 @@ $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) limine.conf
 	cp -v bootloader/limine/BOOTX64.EFI iso_root/EFI/BOOT/
 	xorriso -as mkisofs $(XORRISOFLAGS) iso_root -o $(IMAGE_NAME).iso
 	rm -rf iso_root
-
 
 run:
 	run-$(ARCH)
