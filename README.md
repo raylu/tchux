@@ -6,12 +6,12 @@ This is a hobby project, developed for fun and to learn more about operating sys
 
 
 ## About
-Name: Tchux
+**Name:** Tchux
 
-Base: No existing distribution — made from scratch, with a retro spirit.
+**Base** No existing distribution — made from scratch, with a retro spirit.
 
-Architecture: 64-bit (x86_64)
+**Architecture:** 64-bit (x86_64)
 
-Style: Simple, direct, focused on the aesthetics and philosophy of 90s systems.
+**Style:** Simple, direct, focused on the aesthetics and philosophy of 90s systems.
 
-Current status: In development.
+**Current status:** In development.
