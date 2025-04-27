@@ -3,9 +3,9 @@ QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 
 CC := gcc
-CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -Ilibs -Ilibc
-LDFLAGS := -nostdlib -T kernel/rch/x86_64/linker.ld
-KERNELSRC := kernel/arch/x86_64/kernel/main.c
+CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -Ilibs -Ilibc -Ikernel/arch/$(ARCH)/include
+LDFLAGS := -nostdlib -T kernel/arch/x86_64/linker.ld
+KERNELSRC := kernel/arch/x86_64/main.c
 KERNELOUT := kernel/out/kernel
 
 override IMAGE_NAME := tchux-$(ARCH)
