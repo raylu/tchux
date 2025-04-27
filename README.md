@@ -8,7 +8,7 @@ This is a hobby project, developed for fun and to learn more about operating sys
 ## About
 **Name:** Tchux
 
-**Base** No existing distribution — made from scratch, with a retro spirit.
+**Base:** No existing distribution — made from scratch, with a retro spirit.
 
 **Architecture:** 64-bit (x86_64)
 
