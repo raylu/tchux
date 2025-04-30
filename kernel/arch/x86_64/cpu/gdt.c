@@ -11,26 +11,27 @@ void init_gdt()
 	
 	set_gdt(0,0,0,0,0); // null segment
 	set_gdt(1,0,0,0x9A,0xA0); // kernel code
-	set_gdt(2,0,0,0x92,0xA0); // kernel data
+	set_gdt(2,0,0,0x92,0xC0); // kernel data
 	set_gdt(3,0,0,0xFA,0xA0); // user code
-	set_gdt(4,0,0,0xF2,0xA0); // user data
+	set_gdt(4,0,0,0xF2,0xC0); // user data
 	
-	asm("lgdt %0" : : "m" (gdt_ptr));
-	
-	asm volatile(
-		"\
-			push $0x08; \
-			lea reload(%%rip), %%rax; \
-			push %%rax; \
-			lretq; \
-			reload: \
-			mov $0x10, %%ax; \
-			mov %%ax, %%ds; \
-			mov %%ax, %%es; \
-			mov %%ax, %%fs; \
-			mov %%ax, %%gs; \
-			mov %%ax, %%ss" : : : "eax", "rax"
-	);
+	gdt_flush();
+}
+
+void gdt_flush(void) {
+    asm volatile (
+        "lgdt %0\n"
+        "mov $0x10, %%ax\n"
+        "mov %%ax, %%ds\n"
+        "mov %%ax, %%es\n"
+        "mov %%ax, %%ss\n"
+        "pushq $0x08\n"
+        "lea 1f(%%rip), %%rax\n"
+        "pushq %%rax\n"
+        "lretq\n"
+        "1:\n"
+        : : "m"(gdt_ptr) : "rax", "memory"
+    );
 }
 
 void set_gdt(uint64_t num, uint64_t base, uint64_t limit, uint8_t access, uint8_t flags)
