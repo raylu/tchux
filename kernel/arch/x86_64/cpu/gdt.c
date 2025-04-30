@@ -41,7 +41,7 @@ void set_gdt(uint64_t num, uint64_t base, uint64_t limit, uint8_t access, uint8_
 	
 	gdt_entries[num].limit = limit & 0xFFFF;
 	gdt_entries[num].flags = (limit >> 16) & 0x0F;
-	gdt_entries[num].flags = (flags << 4) & 0xF0;
+	gdt_entries[num].flags |= flags & 0xF0;
 	
 	gdt_entries[num].access = access;
 	
