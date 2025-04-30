@@ -1,11 +1,9 @@
 ARCH := x86_64
 QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
-
 CC := gcc
-CFLAGS := -ffreestanding -O2 -Wall -Wextra -nostdlib -fno-pic -fno-pie -Ilibs -Ilibc -Ikernel/arch/$(ARCH)/include
+CFLAGS := -g -mcmodel=large -ffreestanding -O2 -Wall -Wextra -Ikernel/libs -Ikernel/libc -Ikernel/arch/$(ARCH)/include
 LDFLAGS := -nostdlib -T kernel/arch/x86_64/linker.ld
-KERNELSRC := kernel/arch/x86_64/main.c
 KERNELOUT := kernel/out/kernel
 
 override IMAGE_NAME := tchux-$(ARCH)
@@ -30,8 +28,9 @@ bootloader/limine:
 
 # kernel compile
 $(KERNELOUT): $(KERNELSRC)
-	$(CC) $(CFLAGS) -c -o kernel/out/main.o $(KERNELSRC)
-	ld $(LDFLAGS) -o $@ kernel/out/main.o
+	$(CC) $(CFLAGS) -c -o kernel/out/main.o kernel/arch/x86_64/main.c
+	$(CC) $(CFLAGS) -c -o kernel/out/gdt.o kernel/arch/x86_64/cpu/gdt.c
+	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) limine.conf
