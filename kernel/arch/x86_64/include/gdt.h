@@ -20,6 +20,6 @@ struct gdt_ptr_struct
 } __attribute__((packed));
 
 void init_gdt();
-void set_gdt(uint64_t num, uint64_t base, uint64_t limit, uint8_t access, uint8_t flags);
+void set_gdt(uint64_t id, uint64_t base, uint64_t limit, uint8_t access, uint8_t flags);
 
 #endif

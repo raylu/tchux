@@ -34,16 +34,16 @@ void gdt_flush(void) {
     );
 }
 
-void set_gdt(uint64_t num, uint64_t base, uint64_t limit, uint8_t access, uint8_t flags)
+void set_gdt(uint64_t id, uint64_t base, uint64_t limit, uint8_t access, uint8_t flags)
 {
-	gdt_entries[num].base_low = base & 0XFFFF;
-	gdt_entries[num].base_middle = (base >> 16) & 0xFF;
-	gdt_entries[num].base_high = (base >> 24) & 0xFF;
+	gdt_entries[id].base_low = base & 0XFFFF;
+	gdt_entries[id].base_middle = (base >> 16) & 0xFF;
+	gdt_entries[id].base_high = (base >> 24) & 0xFF;
 	
-	gdt_entries[num].limit = limit & 0xFFFF;
-	gdt_entries[num].flags = (limit >> 16) & 0x0F;
-	gdt_entries[num].flags |= flags & 0xF0;
+	gdt_entries[id].limit = limit & 0xFFFF;
+	gdt_entries[id].flags = (limit >> 16) & 0x0F;
+	gdt_entries[id].flags |= flags & 0xF0;
 	
-	gdt_entries[num].access = access;
+	gdt_entries[id].access = access;
 	
 }
