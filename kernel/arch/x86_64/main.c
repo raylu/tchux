@@ -1,6 +1,7 @@
 #include <limine.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <gdt.h>
 
 __attribute__((used, section(".limine_requests")))
 static volatile LIMINE_BASE_REVISION(3);
@@ -38,7 +39,6 @@ void kmain(void)
 		hcf();
 	}
 	
-	struct limine_framebuffer *framebuffer = framebuffer_request.response->framebuffers[0];
-	
+	init_gdt();
 	hcf();
 }
