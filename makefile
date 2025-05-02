@@ -30,7 +30,8 @@ bootloader/limine:
 $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/main.o kernel/arch/x86_64/main.c
 	$(CC) $(CFLAGS) -c -o kernel/out/gdt.o kernel/arch/x86_64/cpu/gdt.c
-	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o
+	$(CC) $(CFLAGS) -c -o kernel/out/memory.o kernel/libs/memory.c
+	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) limine.conf
