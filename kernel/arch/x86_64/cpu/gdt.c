@@ -2,7 +2,6 @@
 #include <gdt.h>
 #include <memory.h>
 
-#define KERNEL_STACK_SIZE 8192
 uint8_t kernel_stack[KERNEL_STACK_SIZE];
 
 struct gdt_entry_struct gdt_entries[7];

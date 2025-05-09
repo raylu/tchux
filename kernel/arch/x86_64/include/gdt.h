@@ -19,6 +19,9 @@ struct gdt_ptr_struct
 	uint64_t base;
 } __attribute__((packed));
 
+
+#define KERNEL_STACK_SIZE 8192
+
 struct tss_entry_struct
 {
 	uint64_t reserved0;
