@@ -43,6 +43,8 @@ struct tss_entry_struct
 
 void init_gdt();
 void set_gdt(uint64_t id, uint64_t base, uint64_t limit, uint8_t access, uint8_t flags);
+void gdt_flush(void);
 void set_tss(uint64_t id, uint64_t rsp0);
+void tss_flush(void);
 
 #endif

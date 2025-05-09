@@ -54,7 +54,7 @@ void set_gdt(uint64_t id, uint64_t base, uint64_t limit, uint8_t access, uint8_t
 	gdt_entries[id].access = access;
 }
 
-set_tss(uint64_t id, uint64_t rsp0)
+void set_tss(uint64_t id, uint64_t rsp0)
 {
 	uint64_t base = (uint64_t) &tss_entry;
 	uint64_t limit = sizeof(struct tss_entry_struct) - 1;
