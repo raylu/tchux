@@ -34,11 +34,11 @@ $(KERNELOUT): $(KERNELSRC)
 	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o
 
 # crete iso
-$(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) limine.conf
+$(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) init/boot/limine/limine.conf
 	rm -rf iso_root
 	mkdir -p iso_root/boot/limine iso_root/EFI/BOOT
 	cp -v $(KERNELOUT) iso_root/boot/kernel
-	cp -v limine.conf iso_root/boot/limine/
+	cp -v init/boot/limine/limine.conf iso_root/boot/limine/
 	cp -v bootloader/limine/limine-uefi-cd.bin iso_root/boot/limine/
 	cp -v bootloader/limine/BOOTX64.EFI iso_root/EFI/BOOT/
 	xorriso -as mkisofs $(XORRISOFLAGS) iso_root -o $(IMAGE_NAME).iso
