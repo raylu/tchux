@@ -47,4 +47,7 @@ void gdt_flush(void);
 void set_tss(uint64_t id, uint64_t rsp0);
 void tss_flush(void);
 
+#define GDT_KERNEL_CODE 40;
+#define GDT_KERNEL_DATA 48;
+
 #endif
