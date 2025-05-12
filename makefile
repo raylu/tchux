@@ -34,7 +34,7 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/idt.o kernel/arch/x86_64/cpu/idt.c
 	$(CC) $(CFLAGS) -c -o kernel/out/system.o kernel/arch/x86_64/cpu/system.c
 	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/arch/x86_64/graphics/fb.c
-	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o kernel/out/system.o kernel/out/idt.o kernel/out/fb.o
+	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o kernel/out/system.o kernel/out/idt.o kernel/out/fb.o init/fonts/font.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) init/boot/limine/limine.conf
@@ -54,4 +54,4 @@ run-x86_64: bootloader/ovmf/ovmf-code-$(ARCH).fd $(IMAGE_NAME).iso
 	qemu-system-$(ARCH) -M q35 -drive if=pflash,unit=0,format=raw,file=bootloader/ovmf/ovmf-code-$(ARCH).fd,readonly=on -cdrom $(IMAGE_NAME).iso $(QEMUFLAGS)
 
 clean:
-	rm -rf iso_root $(IMAGE_NAME).iso limine ovmf $(KERNELOUT) kernel/*.o
+	rm -rf iso_root $(IMAGE_NAME).iso limine ovmf $(KERNELOUT) kernel/out/*.o

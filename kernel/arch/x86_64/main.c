@@ -28,5 +28,11 @@ void kmain(void)
 	/* framebuffer */
 	init_fb();
 	
+	
+	draw_text(10, 10, "Welcome to Tchux OS ", 0xFFFFFF);
+	draw_text(10, 50, "GDT loaded", 0xFFFFFF);
+	draw_text(10, 70, "IDT loaded", 0xFFFFFF);
+	draw_text(10, 90, "Framebuffer loaded", 0xFFFFFF);
+	
 	hcf();
 }
