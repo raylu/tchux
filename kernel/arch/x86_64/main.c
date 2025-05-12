@@ -3,14 +3,13 @@
 #include <stddef.h>
 #include <gdt.h>
 #include <idt.h>
-
-
+#include <fb.h>
 
 static void hcf(void)
 {
 	for(;;)
 	{
-		__asm__("hlt");
+		asm volatile("hlt");
 	}
 }
 
@@ -22,7 +21,12 @@ void kmain(void)
 		hcf();
 	}
 	
+	/* cpu */
 	init_gdt();
 	init_idt();
+	
+	/* framebuffer */
+	init_fb();
+	
 	hcf();
 }

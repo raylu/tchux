@@ -33,7 +33,8 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/memory.o kernel/libs/memory.c
 	$(CC) $(CFLAGS) -c -o kernel/out/idt.o kernel/arch/x86_64/cpu/idt.c
 	$(CC) $(CFLAGS) -c -o kernel/out/system.o kernel/arch/x86_64/cpu/system.c
-	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o kernel/out/system.o kernel/out/idt.o
+	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/arch/x86_64/graphics/fb.c
+	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o kernel/out/system.o kernel/out/idt.o kernel/out/fb.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) init/boot/limine/limine.conf
