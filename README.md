@@ -4,6 +4,7 @@ Tchux is a 64-bit operating system inspired by the classic systems of the 90s.
 
 This is a hobby project, developed for fun and to learn more about operating systems, computer architecture and low-level programming.
 
+![Demo](demo/demo.png)
 
 ## About
 **Name:** Tchux
