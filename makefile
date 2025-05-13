@@ -2,8 +2,8 @@ ARCH := x86_64
 QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 CC := gcc
-CFLAGS := -g -mcmodel=large -ffreestanding -O2 -Wall -Wextra -Ikernel/libs/include -Ikernel/libc -Ikernel/arch/$(ARCH)/include
-LDFLAGS := -nostdlib -T kernel/arch/x86_64/linker.ld
+CFLAGS := -g -mcmodel=large -ffreestanding -O2 -Wall -Wextra -Ikernel/libs/include -Ikernel/libc -Ikernel/include
+LDFLAGS := -nostdlib -T kernel/linker.ld
 KERNELOUT := kernel/out/kernel
 
 override IMAGE_NAME := tchux-$(ARCH)
