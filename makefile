@@ -28,12 +28,12 @@ bootloader/limine:
 
 # kernel compile
 $(KERNELOUT): $(KERNELSRC)
-	$(CC) $(CFLAGS) -c -o kernel/out/main.o kernel/arch/x86_64/main.c
-	$(CC) $(CFLAGS) -c -o kernel/out/gdt.o kernel/arch/x86_64/cpu/gdt.c
+	$(CC) $(CFLAGS) -c -o kernel/out/main.o kernel/main.c
+	$(CC) $(CFLAGS) -c -o kernel/out/gdt.o kernel/cpu/gdt.c
 	$(CC) $(CFLAGS) -c -o kernel/out/memory.o kernel/libs/memory.c
-	$(CC) $(CFLAGS) -c -o kernel/out/idt.o kernel/arch/x86_64/cpu/idt.c
-	$(CC) $(CFLAGS) -c -o kernel/out/system.o kernel/arch/x86_64/cpu/system.c
-	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/arch/x86_64/graphics/fb.c
+	$(CC) $(CFLAGS) -c -o kernel/out/idt.o kernel/cpu/idt.c
+	$(CC) $(CFLAGS) -c -o kernel/out/system.o kernel/cpu/system.c
+	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/graphics/fb.c
 	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o kernel/out/system.o kernel/out/idt.o kernel/out/fb.o init/fonts/font.o
 
 # crete iso
