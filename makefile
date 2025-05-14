@@ -28,6 +28,7 @@ bootloader/limine:
 
 # kernel compile
 $(KERNELOUT): $(KERNELSRC)
+	mkdir kernel/out
 	$(CC) $(CFLAGS) -c -o kernel/out/main.o kernel/main.c
 	$(CC) $(CFLAGS) -c -o kernel/out/gdt.o kernel/cpu/gdt.c
 	$(CC) $(CFLAGS) -c -o kernel/out/memory.o kernel/libs/memory.c
@@ -35,7 +36,7 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/system.o kernel/cpu/system.c
 	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/graphics/fb.c
 	$(CC) $(CFLAGS) -c -o kernel/out/console.o kernel/graphics/console.c
-	ld $(LDFLAGS) -o $@ kernel/out/main.o kernel/out/gdt.o kernel/out/memory.o kernel/out/system.o kernel/out/idt.o kernel/out/fb.o init/fonts/font.o kernel/out/console.o
+	ld $(LDFLAGS) -o $@ kernel/out/*.o init/fonts/font.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) init/boot/limine/limine.conf
@@ -47,6 +48,7 @@ $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) init/boot/limine/limine.conf
 	cp -v bootloader/limine/BOOTX64.EFI iso_root/EFI/BOOT/
 	xorriso -as mkisofs $(XORRISOFLAGS) iso_root -o $(IMAGE_NAME).iso
 	rm -rf iso_root
+	rm -rf kernel/out
 
 run:
 	run-$(ARCH)

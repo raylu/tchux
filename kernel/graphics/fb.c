@@ -40,6 +40,7 @@ void draw_pixel(uint32_t x, uint32_t y, uint32_t color)
 	*pixel = color;
 }
 
+/*
 void draw_char(uint32_t x, uint32_t y, char c, uint32_t color)
 {	
 	struct psf1_header *header = (struct psf1_header *)&_binary_zap_light16_psf_start;
@@ -70,3 +71,4 @@ void draw_text(uint32_t x, uint32_t y, const char *text, uint32_t color)
 		text++;
 	}
 }
+*/
