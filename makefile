@@ -35,8 +35,9 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/idt.o kernel/cpu/idt.c
 	$(CC) $(CFLAGS) -c -o kernel/out/system.o kernel/cpu/system.c
 	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/graphics/fb.c
+	$(CC) $(CFLAGS) -c -o kernel/out/psf.o kernel/graphics/psf.c
 	$(CC) $(CFLAGS) -c -o kernel/out/console.o kernel/graphics/console.c
-	ld $(LDFLAGS) -o $@ kernel/out/*.o init/fonts/font.o
+	ld $(LDFLAGS) -o $@ kernel/out/*.o
 
 # crete iso
 $(IMAGE_NAME).iso: bootloader/limine $(KERNELOUT) init/boot/limine/limine.conf

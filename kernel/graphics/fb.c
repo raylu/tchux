@@ -40,35 +40,12 @@ void draw_pixel(uint32_t x, uint32_t y, uint32_t color)
 	*pixel = color;
 }
 
-/*
-void draw_char(uint32_t x, uint32_t y, char c, uint32_t color)
-{	
-	struct psf1_header *header = (struct psf1_header *)&_binary_zap_light16_psf_start;
-	
-	if (header->magic != 0x0436) return;
-	
-	uint8_t *glyphs = (uint8_t *)&_binary_zap_light16_psf_start + sizeof(struct psf1_header);
-	uint8_t *glyph = glyphs + (c * header->charsize);
-	
-	for (uint32_t i = 0; i < header->charsize; i++)
-	{
-		for (uint32_t j = 0; j < 8; j++)
-		{
-			if (glyph[i] & (1 << (7 - j)))
-			{
-				draw_pixel(x + j, y + i, color);
-			}
-		}
-	}
-}
-
 void draw_text(uint32_t x, uint32_t y, const char *text, uint32_t color)
 {
 	while(*text)
 	{
-		draw_char(x, y, *text, color);
+		psf_putc(x, y, *text, color);
 		x += 8;
 		text++;
 	}
 }
-*/
