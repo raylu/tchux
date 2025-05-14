@@ -34,6 +34,7 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/graphics/fb.c
 	$(CC) $(CFLAGS) -c -o kernel/out/psf.o kernel/graphics/psf.c
 	$(CC) $(CFLAGS) -c -o kernel/out/console.o kernel/graphics/console.c
+	$(CC) $(CFLAGS) -c -o kernel/out/serial.o kernel/drivers/serial.c
 	ld $(LDFLAGS) -o $@ kernel/out/*.o
 
 # crete iso
@@ -56,3 +57,6 @@ run-x86_64: bootloader/ovmf/ovmf-code-$(ARCH).fd $(IMAGE_NAME).iso
 
 clean:
 	rm -rf iso_root $(IMAGE_NAME).iso limine ovmf $(KERNELOUT) kernel/out/*.o
+	
+	
+# -serial in qemu flags

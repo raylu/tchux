@@ -5,6 +5,7 @@
 #include <idt.h>
 #include <fb.h>
 #include <console.h>
+#include <serial.h>
 
 static void hcf(void)
 {
@@ -25,6 +26,9 @@ void kmain(void)
 	/* cpu */
 	init_gdt();
 	init_idt();
+	
+	/* Serial */
+	serial_putc('a');
 	
 	/* framebuffer */
 	init_fb();
