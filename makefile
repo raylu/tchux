@@ -2,7 +2,7 @@ ARCH := x86_64
 QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 CC := gcc
-CFLAGS := -g -mcmodel=large -ffreestanding -O2 -Wall -Wextra -Ikernel/libs/include -Ikernel/libc -Ikernel/include
+CFLAGS := -mcmodel=large -ffreestanding -O2 -Wall -Wextra -Ikernel/libs/include -Ikernel/libc -Ikernel/include
 LDFLAGS := -nostdlib -T kernel/linker.ld
 KERNELOUT := kernel/out/kernel
 
@@ -16,10 +16,7 @@ all: $(IMAGE_NAME).iso
 bootloader/ovmf/ovmf-code-$(ARCH).fd:
 	mkdir -p bootloader/ovmf
 	curl -Lo $@ https://github.com/osdev0/edk2-ovmf-nightly/releases/latest/download/ovmf-code-$(ARCH).fd
-	case "$(ARCH)" in \
-		aarch64) dd if=/dev/zero of=$@ bs=1 count=0 seek=67108864 2>/dev/null;; \
-		riscv64) dd if=/dev/zero of=$@ bs=1 count=0 seek=33554432 2>/dev/null;; \
-	esac
+	dd if=/dev/zero of=$@ bs=1 count=0 seek=67108864 2>/dev/null;;
 
 # setup limine
 bootloader/limine:
