@@ -1,6 +1,7 @@
 #include <console.h>
 #include <stdint.h>
 #include <psf.h>
+#include <fb.h>
 
 uint32_t width = 0;
 uint32_t height = 0;
