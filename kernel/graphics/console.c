@@ -11,7 +11,8 @@ void init_console()
 	height = 0;
 	
 	load_default_font();
-	draw_text(10, 10, "Hello World", 0xFFFFFFFF);
+	draw_text(10, 10, "Tchux OS", 0xFFFFFFFF);
+	draw_text(10, 25, "Copyright (C) Francisco Araujo", 0xFFFFFFFF);
 }
 	
 uint32_t get_console_x()
