@@ -1,5 +1,4 @@
 #include <idt.h>
-#include <system.h>
 #include <gdt.h>
 
 struct idt_entry_struct idt_entries[256];
