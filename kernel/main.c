@@ -26,10 +26,7 @@ void kmain(void)
 	/* cpu */
 	init_gdt();
 	init_idt();
-	
-	/* Serial */
-	serial_putc('a');
-	
+		
 	/* framebuffer */
 	init_fb();
 	init_console();
