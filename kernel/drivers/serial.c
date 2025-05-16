@@ -2,6 +2,24 @@
 #include <stdint.h>
 #include <ports.h>
 
+void serial_enable(uint32_t device)
+{
+	outportb(device + 1, 0x00);
+	outportb(device + 3, 0x80);
+	outportb(device + 0, 0x03);
+	outportb(device + 1, 0x00);
+	outportb(device + 3, 0x03);
+	outportb(device + 2, 0xC7);
+	outportb(device + 4, 0x0B);
+}
+
+void init_serial()
+{
+	serial_enable(0x3f8);
+	outportb(0x3f8 + 1, 0x01);
+	
+}
+
 /* Recive Data */
 uint32_t serial_recived()
 {

@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+/* init serial */
+void serial_enable(uint32_t device);
+void init_serial();
+
 /* Recive Data */
 uint32_t serial_recived();
 char read_serial();

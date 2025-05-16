@@ -23,13 +23,17 @@ void kmain(void)
 		hcf();
 	}
 	
-	/* cpu */
-	init_gdt();
-	init_idt();
-		
+	init_serial();
+	
 	/* framebuffer */
 	init_fb();
 	init_console();
+	
+	/* cpu */
+	init_gdt();
+	init_idt();
+	
+	serial_putc('a');
 	
 	hcf();
 }
