@@ -16,7 +16,10 @@ all: $(IMAGE_NAME).iso
 bootloader/ovmf/ovmf-code-$(ARCH).fd:
 	mkdir -p bootloader/ovmf
 	curl -Lo $@ https://github.com/osdev0/edk2-ovmf-nightly/releases/latest/download/ovmf-code-$(ARCH).fd
-	dd if=/dev/zero of=$@ bs=1 count=0 seek=67108864 2>/dev/null
+	case "$(ARCH)" in \
+		aarch64) dd if=/dev/zero of=$@ bs=1 count=0 seek=67108864 2>/dev/null;; \
+		riscv64) dd if=/dev/zero of=$@ bs=1 count=0 seek=33554432 2>/dev/null;; \
+	esac
 
 # setup limine
 bootloader/limine:
@@ -28,7 +31,7 @@ $(KERNELOUT): $(KERNELSRC)
 	mkdir kernel/out
 	$(CC) $(CFLAGS) -c -o kernel/out/main.o kernel/main.c
 	$(CC) $(CFLAGS) -c -o kernel/out/gdt.o kernel/cpu/gdt.c
-	$(CC) $(CFLAGS) -c -o kernel/out/memory.o kernel/libs/memory.c
+	$(CC) $(CFLAGS) -c -o kernel/out/memory.o kernel/memory/memory.c
 	$(CC) $(CFLAGS) -c -o kernel/out/idt.o kernel/cpu/idt.c
 	$(CC) $(CFLAGS) -c -o kernel/out/ports.o kernel/cpu/ports.c
 	$(CC) $(CFLAGS) -c -o kernel/out/fb.o kernel/graphics/fb.c
@@ -53,7 +56,9 @@ run:
 	run-$(ARCH)
 
 run-x86_64: bootloader/ovmf/ovmf-code-$(ARCH).fd $(IMAGE_NAME).iso
-	qemu-system-$(ARCH) -M q35 -drive if=pflash,unit=0,format=raw,file=bootloader/ovmf/ovmf-code-$(ARCH).fd,readonly=on -cdrom $(IMAGE_NAME).iso $(QEMUFLAGS)
+	qemu-system-$(ARCH) -M q35 \
+	-drive if=pflash,unit=0,format=raw,file=bootloader/ovmf/ovmf-code-$(ARCH).fd,readonly=on  \
+	-cdrom $(IMAGE_NAME).iso $(QEMUFLAGS)
 
 clean:
 	rm -rf iso_root $(IMAGE_NAME).iso limine ovmf $(KERNELOUT) kernel/out/*.o
