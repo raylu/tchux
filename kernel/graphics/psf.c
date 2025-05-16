@@ -1,8 +1,6 @@
 #include <psf.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <fb.h>
-
 #include <gohufont.h>
 
 extern char _binary_zap_light16_psf_start;
@@ -30,21 +28,4 @@ void load_psf(void *buffer)
 void load_default_font()
 {
 	load_psf(&psf_gohufont[0]);
-}
-
-void psf_putc(uint32_t x, uint32_t y, char c, uint32_t color)
-{
-	uint8_t *targ = (uint8_t*)((size64_t)psf + sizeof(struct psf1_header_struct) + c * psf->charsize);
-	
-	for (uint32_t i = 0; i < psf->charsize; i++)
-	{
-		for (uint32_t j = 0; j < 8; j++)
-		{
-			if (targ[i] & (1 << (8 - j)))
-			{
-				draw_pixel(x + j, y + i, color);
-			}
-		}
-	}
-	
 }

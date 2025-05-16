@@ -1,5 +1,5 @@
 ARCH := x86_64
-QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
+QEMUFLAGS := -m 2G -serial stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 CC := gcc
 CFLAGS := -mcmodel=large -ffreestanding -O2 -Wall -Werror -Wextra -Ikernel/libc -Ikernel/include
@@ -38,6 +38,7 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/psf.o kernel/graphics/psf.c
 	$(CC) $(CFLAGS) -c -o kernel/out/console.o kernel/graphics/console.c
 	$(CC) $(CFLAGS) -c -o kernel/out/serial.o kernel/drivers/serial.c
+	$(CC) $(CFLAGS) -c -o kernel/out/sse.o kernel/cpu/sse.c
 	ld $(LDFLAGS) -o $@ kernel/out/*.o
 
 # crete iso

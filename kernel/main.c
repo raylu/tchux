@@ -6,6 +6,7 @@
 #include <fb.h>
 #include <console.h>
 #include <serial.h>
+#include <sse.h>
 
 static void hcf(void)
 {
@@ -23,6 +24,7 @@ void kmain(void)
 		hcf();
 	}
 	
+	init_sse();
 	init_serial();
 	
 	/* framebuffer */

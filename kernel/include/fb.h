@@ -3,15 +3,18 @@
 
 #include <stdint.h>
 
-extern uint8_t *framebuffer;
-extern uint16_t framebuffer_width;
-extern uint16_t framebuffer_height;
-extern uint32_t framebuffer_pitch;
+struct framebuffer_struct 
+{
+	uint8_t *addr;
+	uint32_t width;
+	uint32_t height;
+	uint32_t pitch;
+	uint32_t bpp;
+};
 
+extern struct framebuffer_struct framebuffer;
 extern struct limine_framebuffer limine_fb;
 
 void init_fb();
-void draw_pixel(uint32_t x, uint32_t y, uint32_t color);
-void draw_text(uint32_t x, uint32_t y, const char *text, uint32_t color);
 
 #endif
