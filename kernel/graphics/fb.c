@@ -1,5 +1,4 @@
 #include <limine.h>
-#include <stdint.h>
 #include <fb.h>
 #include <memory.h>
 
