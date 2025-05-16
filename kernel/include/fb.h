@@ -6,10 +6,17 @@
 struct framebuffer_struct 
 {
 	uint8_t *addr;
-	uint32_t width;
-	uint32_t height;
-	uint32_t pitch;
-	uint32_t bpp;
+	uint64_t width;
+	uint64_t height;
+	uint64_t pitch;
+	uint64_t bpp;
+	
+	uint64_t red_shift;
+	uint64_t red_size;
+	uint64_t green_shift;
+	uint64_t green_size;
+	uint64_t blue_shift;
+	uint64_t blue_size;
 };
 
 extern struct framebuffer_struct framebuffer;

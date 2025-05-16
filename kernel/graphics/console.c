@@ -10,7 +10,7 @@ void init_console()
 {
 	width = 0;
 	height = 0;
-	
+
 	load_default_font();
 }
 	

@@ -21,5 +21,14 @@ void init_fb()
 	framebuffer.pitch = fb_response->pitch;
 	framebuffer.bpp = fb_response->bpp;
 	
+	framebuffer.red_shift = fb_response->red_mask_shift;
+	framebuffer.red_size = fb_response->red_mask_size;
+	
+	framebuffer.green_shift = fb_response->green_mask_shift;
+	framebuffer.green_size = fb_response->green_mask_size;
+	
+	framebuffer.blue_shift = fb_response->blue_mask_shift;
+	framebuffer.blue_size = fb_response->blue_mask_size;
+	
 	memcpy(&limine_fb, fb_response, sizeof(struct limine_framebuffer));
 }
