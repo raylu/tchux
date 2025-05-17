@@ -1,7 +1,7 @@
 #include <memory.h>
 #include <stdint.h>
 
-void *memset(void *s, int c, size64_t n)
+void *memset(void *s, int c, size_t n)
 {
 	uint8_t *p = (uint8_t *)s;
 	
@@ -13,7 +13,7 @@ void *memset(void *s, int c, size64_t n)
 	return s;
 }
 
-void *memcpy(void *restrict dest, const void *restrict src, size64_t n)
+void *memcpy(void *restrict dest, void *restrict src, size_t n)
 {
 	uint8_t *restrict pdest = (uint8_t *restrict)dest;
 	const uint8_t *restrict psrc = (const uint8_t *restrict)src;
