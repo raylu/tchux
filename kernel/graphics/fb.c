@@ -1,6 +1,7 @@
 #include <limine.h>
 #include <fb.h>
 #include <memory.h>
+#include <core.h>
 
 static volatile struct limine_framebuffer_request fb_request = {
 	.id = LIMINE_FRAMEBUFFER_REQUEST,
@@ -13,6 +14,8 @@ struct framebuffer_struct framebuffer;
 void init_fb()
 {	
 	struct limine_framebuffer *fb_response = fb_request.response->framebuffers[0];
+	
+	kernel.framebuffer_addr = fb_response->address;
 	
 	framebuffer.addr = fb_response->address;
 	framebuffer.height = fb_response->height;

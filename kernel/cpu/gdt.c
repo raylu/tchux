@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <gdt.h>
 #include <memory.h>
+#include <core.h>
 
 uint8_t kernel_stack[KERNEL_STACK_SIZE];
 
@@ -22,6 +23,8 @@ void init_gdt()
 	
 	gdt_flush();
 	tss_flush();
+	
+	kernel.gdt_addr = (void*)gdt_ptr.base;
 }
 
 void gdt_flush(void) 

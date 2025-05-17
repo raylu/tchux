@@ -2,7 +2,7 @@ ARCH := x86_64
 QEMUFLAGS := -m 2G -monitor stdio -d int -M smm=off
 XORRISOFLAGS := -R -r -J -hfsplus -apm-block-size 2048 --efi-boot boot/limine/limine-uefi-cd.bin -efi-boot-part --efi-boot-image --protective-msdos-label
 CC := gcc
-CFLAGS := -mcmodel=large -ffreestanding -O2 -Wall -Werror -Wextra -Ikernel/libc -Ikernel/include
+CFLAGS := -mcmodel=large -ffreestanding -O2 -Wall -Werror -Wextra -Ikernel/libc -Ikernel/include -Ikernel/core
 LDFLAGS := -nostdlib -T kernel/linker.ld
 KERNELOUT := kernel/out/kernel
 
@@ -40,6 +40,7 @@ $(KERNELOUT): $(KERNELSRC)
 	$(CC) $(CFLAGS) -c -o kernel/out/draw.o kernel/graphics/draw.c
 	$(CC) $(CFLAGS) -c -o kernel/out/serial.o kernel/drivers/serial.c
 	$(CC) $(CFLAGS) -c -o kernel/out/sse.o kernel/cpu/sse.c
+	$(CC) $(CFLAGS) -c -o kernel/out/core.o kernel/core/core.c
 	ld $(LDFLAGS) -o $@ kernel/out/*.o
 
 # crete iso
