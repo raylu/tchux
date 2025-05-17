@@ -1,5 +1,5 @@
 bootloader
 out
-docs/venv
+docs/sphinx/venv
 *.iso
 *.hdd
